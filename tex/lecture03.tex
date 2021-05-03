@@ -1,2 +1,61 @@
 \urlsection{http://www2.cs.uh.edu/~gnawali/courses/cosc6377-s21/papers/Ratnasamy06.pdf}{Revisiting IP
 Multicast}
+\begin{itemize}
+    \item New implementation of multicast called Free Riding Multicast (FRM)
+    \begin{itemize}
+        \item avoids need of distributed multicast route computation by
+        leveraging unicast routes
+        \item participation and use is effected via same channel as unicast, BGP
+        (familiar framework)
+    \end{itemize}
+    \item moves cost from protocol to router internals
+    \item areas that would benefit from multicast
+    \begin{itemize}
+        \item MMORPGs
+        \item internet TV
+        \item file-sharing, RSS, software updates, video conferencing, grids
+    \end{itemize}
+    \item application layer solutions less constrained by concerns of ISPs
+    \begin{itemize}
+        \item difficult to scale
+    \end{itemize}
+    \item network layer solutions scale by augmenting existing global ecosystem
+    \begin{itemize}
+        \item appealing for general-purpose services
+    \end{itemize}
+    \item Design
+    \begin{itemize}
+        \item group membership discovery
+        \begin{itemize}
+            \item group addresses encoded using bloom filter
+            \begin{itemize}
+                \item values are hashed, corresponding bits are set in filter
+                \item membership checked by checking corresponding bits
+                \item false positives but no false negatives
+                \item can receive traffic not interested in
+                \item either drop such traffic, or can inform upstream to stop
+                forwarding such traffic 
+            \end{itemize}
+            \item false positive rate of $\min(1, \sfrac{f}{(A-G)})$, where $G$
+            is number of groups, $A$ size of address space, and $f$ is number of
+            allowed filters
+            \item since false positive can only be triggered by one of $A - G$
+            addresses
+            \item adds memory requirement
+            \begin{itemize}
+                \item marginal in terms of cost
+            \end{itemize}
+        \end{itemize}
+        \item multicast packet forwarding
+        \begin{itemize}
+            \item forwarding at $R_s$
+            \begin{itemize}
+                \item 
+            \end{itemize}
+        \end{itemize}
+        \item Evaluation
+        \begin{itemize}
+            \item 
+        \end{itemize}
+    \end{itemize}
+\end{itemize}

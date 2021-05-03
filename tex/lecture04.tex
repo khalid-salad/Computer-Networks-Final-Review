@@ -1,2 +1,34 @@
 \urlsection{http://www2.cs.uh.edu/~gnawali/courses/cosc6377-s21/papers/KatzBassett10.pdf}{Reverse
 Traceroute}
+\begin{itemize}
+    \item traceroute measures sequence of routers from source to destination,
+    with RTT at each hop
+    \item attempt to build a reverse path tool equivalent to traceroute
+    \item source requests a path from system, coordinates probes from source and
+    set of distributed vantage points
+    \begin{itemize}
+        \item issue traceroutes to source, yielding atlas of paths to it
+        \item use this limited view to bootstrap measurement of desired path
+    \end{itemize}
+    \item once path from destination reaches hop in the atlas, use atlas to
+    derive remainder of path
+    \item identify reverse hops with IP options
+    \begin{itemize}
+        \item $\texttt{RR-Ping}(S\to D)$
+        \begin{itemize}
+            \item $S$ issues ICMP Echo Request to probe to $D$ with RR option
+            \item if RR slots remain on response, routers record some of route
+            \item allows limited measurement of reverse path as long as
+            destination is fewer than 9 hops from $S$
+        \end{itemize}
+        \item $\texttt{TS-Query-Ping}(S\to D\mid D, R)$
+        \begin{itemize}
+            \item $S$ issues ICMP ping probe to $D$ with timestamp query
+            \item $R$ records timestamp only if encountered by probe after $D$
+            has stamped packet
+            \item if $S$ receives timestamp for $R$, then knows $R$ appears on
+            reverse path
+        \end{itemize}
+    \end{itemize}
+    \item incrementally build paths
+\end{itemize}
