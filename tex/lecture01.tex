@@ -1,1 +1,52 @@
 \urlsection{http://www2.cs.uh.edu/~gnawali/courses/cosc6377-s21/papers/Saltzer84.pdf}{End-To-End Arguments in System Design}
+\begin{itemize}
+    \item Design principles that help guide placement of functions among modules
+    of distributed computer systems
+    \item end-to-end argument
+    \begin{itemize}
+        \item suggests that functions placed at low levels are redundant or of
+        little value compared to cost
+        \item ``can only be completely and correctly immplemented with knowledge
+        and help of application standing at end points of communication''
+    \end{itemize}
+    \item careful file transfer
+    \begin{itemize}
+        \item move file from $A$ to $B$ without damage
+        \item can reinforce all steps by repetition
+        \begin{itemize}
+            \item may be uneconomical
+        \end{itemize}
+        \item alternate approach to ``check and retry''
+        \begin{itemize}
+            \item send checksum
+            \item if failure probability low, will probably work on first try
+        \end{itemize}
+        \item in order to achieve, program must
+        \begin{itemize}
+            \item supply file-transfer specific, end-to-end reliability guarantee
+            \begin{itemize}
+                \item checksum to detect failures
+                \item retry/commit plan
+            \end{itemize}
+        \end{itemize}
+        \item thus, even if data communication system is reliable, burder on
+        application is not reduced
+    \end{itemize}
+    \item performance tradeoff
+    \begin{itemize}
+        \item if too unreliable, performance suffers because of frequent retries
+        \item if internal reliability added, performance suffers because of
+        redundant data (e.g. checksums)
+        \item ``proper'' tradeoff requires careful thought
+    \end{itemize}
+    \item similar arguments for
+    \begin{itemize}
+        \item delivery guarantees
+        \item secure transmission of data
+        \item duplicate message suppression
+        \item FIFO message delivery
+        \item transaction management
+    \end{itemize}
+    \item must analyze the specific application requirements
+    \item in the end, sort of an ``Occam's razor''
+\end{itemize}

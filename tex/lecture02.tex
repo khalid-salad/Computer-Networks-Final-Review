@@ -1,2 +1,60 @@
 \urlsection{http://www2.cs.uh.edu/~gnawali/courses/cosc6377-s21/papers/Lin97.pdf}{Dynamics of Random
 Early Detection}
+\begin{itemize}
+    \item RED gateway drops packs with dynamically computed probability
+    \begin{itemize}
+        \item when average number of packets queued exceeds threshold $\texttt{min}_{\texttt{th}}$
+        \item FCFS scheduling
+        \item percentage dropped from $\texttt{connection}_i$ with input rate $\lambda_i$
+        \[\frac{\lambda_i p}{\sum \lambda_i p} = \frac{\lambda}{\sum \lambda_i}\]
+        \item output rate
+        \[\frac{\lambda_i (1-p)}{\sum \lambda_i (1-p)} = \frac{\lambda}{\sum \lambda_i}\]
+        \item RED drops packets in proportion to each connection's output usage
+    \end{itemize}
+    \item if congestion is persistent, average queue length is above $\texttt{min}_{\texttt{th}}$
+    \begin{itemize}
+        \item non-zero minimu drop probability regardless of bandwidth useage
+    \end{itemize}
+    \item unfair link sharing
+    \begin{enumerate}
+        \item bias against fragile connections
+        \item accepting packet from one connection causes higher drop
+        probability for future packets from other connections, even if they
+        consume less bandwidth
+        \item non-adaptive connection can force RED to drop packets at high rate
+        from all connections
+    \end{enumerate}
+    \item Flow Random Early Drop (FRED)
+    \begin{itemize}
+        \item modified version of RED
+        \item behaves like RED with $\texttt{min}_q$ and $\texttt{max}_q$ goals
+        \begin{itemize}
+            \item minimum and maximum number of packets each flow allowed to buffer
+        \end{itemize}
+        \item flows with fewer than \texttt{avgcq} packets queued are favored
+        over flows with more
+        \item maintains count of buffered packets \texttt{qlen} for each flow
+        \item maintains variable strike for each flow
+        \begin{itemize}
+            \item counts the number of times flow has failed to respond to
+            congestion notification
+            \item penalizes flows with high strike values
+        \end{itemize}
+    \end{itemize}
+    \item simulations
+    \begin{itemize}
+        \item RED
+        \begin{itemize}
+            \item does not provide fair bandwidth sharing
+        \end{itemize}
+        \item FRED
+        \begin{itemize}
+            \item provides selective dropping based on per-active-flow buffer counts
+            \item compatible with existing FIFO queueing architectures
+            \item often fairer than RED when connections have different RTTs and
+            window sizes
+            \item protects adaptive flows from non-adaptive flows by enforcing
+            dynamic per-flow queueing limits
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
